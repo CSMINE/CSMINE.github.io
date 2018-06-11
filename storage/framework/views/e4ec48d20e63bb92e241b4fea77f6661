@@ -1,0 +1,126 @@
+<?php $__env->startSection('content'); ?>
+<header  class="other_pages" >
+   <?php echo $__env->make('includes.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>     
+</header>
+
+<script src="<?php echo e(asset('front/js/shop.js')); ?>"></script>
+<div id="wrapper">
+<!-- <middle> -->
+
+    <div class="top_page">
+        <div class="left">Магазин</div>
+        <div class="right">
+            <div class="text">Ваши монеты: <span id="balance">0</span><a href="#"></a></div>
+        </div>
+    </div>
+
+    <div class="recycle">
+
+        <div class="inbox">
+            <div class="scroll" id="cart-list">
+            	<script type="text/template" id="item-template-cart">
+	            	<div class="itm">
+						<div class="inner" rel="tooltip" title="<%= name %>">
+							<div class="pic"><img src="<%= image %>"></div>
+							<div class="name"><%= shortname %></div>
+							<div class="rar <%= type %>"></div>
+							<div class="price"><%= priceText %></div>
+						</div>
+					</div>
+        		</script>
+            </div>
+        </div>
+
+        <div class="details">
+            <div class="title">Корзина<div class="trash"></div></div>
+            <button class="get_items" onclick="getitems()">Забрать вещи</button>
+            <div class="clear"></div>
+            <div class="bottom"><input type="checkbox" name="">Мне 18 лет и я знаю об <a href="#">ограничениях магазина</a></div>
+        </div>
+
+    </div>
+
+    <div class="store_items" id="items-list">
+        <script type="text/template" id="item-template">
+            <div class="itm warshop" onclick="buy( <%= id %> )">
+                <div class="inbx" rel="tooltip" title="<%= name %>">
+                    <div class="numbs">X<%= count %></div>
+                    <div class="pic"><img src="<%= image %>"></div>
+                    <div class="name"><%= shortname %></div>
+                    <div class="rar <%= type %>"></div>
+                    <div class="price"><%= priceText %></div>
+                </div>
+            </div>
+        </script>
+    </div>
+
+<!-- </middle> -->
+</div>
+
+
+<script type="text/javascript">
+    function buy(id) {
+        $.ajax({
+            url: '/shop/buy',
+            type: 'POST',
+            dataType: 'json',
+            data: {id: id},
+            success: function (data) {
+                if (data.success) {
+					$.notify(data.msg, {
+						clickToHide: 'true',
+						autoHide: "false",
+						className: "success"
+					});
+                }
+                else {
+                    if (data.msg) $.notify(data.msg, {className: "error"});
+                }
+            },
+            error: function () {
+                that.notify("Произошла ошибка. Попробуйте еще раз", {
+                    className: "error"
+                });
+            }
+        });
+        return false;
+    }
+			
+    function getitems() {
+        $.ajax({
+            url: '/getcart',
+            type: 'POST',
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                if (data.success) {
+
+					$.notify(data.msg, {
+						clickToHide: 'true',
+						autoHide: "false",
+						className: "success"
+					});
+                }
+                else {
+                    if (data.msg) $.notify(data.msg, {className: "error"});
+                }
+            },
+            error: function () {
+                that.notify("Произошла ошибка. Попробуйте еще раз", {
+                    className: "error"
+                });
+            }
+        });
+        return false;
+    }
+
+    function updateBalance() {
+        $.post('/getBalance', function (data) {
+            $('.userBalance').text(data);
+        });
+    }
+        
+</script>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,61 @@
+<main-chat class="ng-isolate-scope">
+<div class="chat-wrapper">
+<div class="chat-box animated fadeOutRight" style="margin-bottom: 50px;">
+<?php if(!Auth::guest()): ?>
+<?php if($u->is_admin == 1): ?>
+<div class="chat-footer" style="margin-top: -3px;">
+<div class="chat-form ng-pristine ng-valid">
+<input type="text" placeholder="Введите номер билета" id="setTick" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+<button type="submit" class="btn btn-primary btn-square btn-sm ladda-button" id="setTickButton"><span class="ladda-label">Принять</span><span class="ladda-spinner"></span></button>
+</div>
+</div>
+<?php endif; ?>
+<?php endif; ?>
+<div class="chat-box-wrapper">
+<div class="close-chat">
+<i class="fa fa-times"></i>
+</div>
+<div class="chat-header">
+Чат
+</div>
+<div class="chat-content">
+<div class="chat-spinner">
+<i class="fa fa-spinner fa-2x fa-spin fa-fw"></i>
+</div>
+<div class="chat-content-wrapper" style="overflow: hidden; width: auto; height: 250px;">
+<?php /**/ $messages = \App\Http\Controllers\ChatController::chat(); /**/ ?>
+<?php if($messages != 0): ?>
+<?php foreach($messages as $sms): ?>
+<div class="chat-message clearfix ng-scope" id="chatm_<?php echo e($sms['time2']); ?>">
+<a class="avatar" <?php if($sms['admin'] || $sms['support']): ?> style="cursor:default;" <?php else: ?> href="/profile/<?php echo e($sms['steamid64']); ?>" <?php endif; ?> <?php if($sms['admin'] || $sms['support']): ?> <?php else: ?> onclick="Page.Go(this.href); return false;" <?php endif; ?>>
+<img alt="" src="<?php echo e($sms['avatar']); ?>">
+</a>
+<div class="username ng-binding" href="#" onclick="var u = $(this); $('#chatInput').val(u.text() + ', '); return false;" style="<?php echo e($sms['colors']); ?>cursor:pointer;"><?php echo e($sms['username']); ?></div>
+<div class="content ng-binding"><?php echo $sms['messages']; ?></div>
+</div>
+<?php endforeach; ?>
+<?php endif; ?>
+</div>
+
+<div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 43.2526px; background: rgb(0, 0, 0);"></div>
+<div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div>
+</div>
+
+<div class="chat-footer">
+<div class="chat-form ng-pristine ng-valid">
+<?php if(Auth::guest()): ?>
+<input type="text" placeholder="Введите сообщение" class="ng-pristine ng-untouched ng-valid ng-not-empty" disabled>
+<button type="submit" class="btn btn-primary btn-square btn-sm ladda-button" disabled><span class="ladda-label">Отправить</span><span class="ladda-spinner"></span></button>
+<?php else: ?>
+<input type="text" placeholder="Введите сообщение" id="chatInput" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+<button type="submit" id="chatInput2" class="btn btn-primary btn-square btn-sm ladda-button"><span class="ladda-label">Отправить</span><span class="ladda-spinner"></span></button>
+<?php endif; ?>
+</div>
+</div>
+</div>
+</div>
+<div class="chat-btn animated fadeInLeft" style="margin-bottom: 50px;">
+<i class="fa fa-comments"></i>
+</div>
+</div>
+</main-chat>

@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+	order allow,deny
+	deny from 83.139.142.211
+	allow from all
+	
+    RewriteEngine on
+    RewriteCond %{REQUEST_URI} !^public
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

@@ -1,0 +1,53 @@
+@media (max-width: 1010px) {
+	table#responsive_4,
+	table#responsive_4 thead,
+	table#responsive_4 tbody,
+	table#responsive_4 th,
+	table#responsive_4 td,
+	table#responsive_4 tr { display: block; position: relative;}
+	table#responsive_4 thead tr { position: absolute; top: -9999px; left: -9999px; }
+	table#responsive_4 tr { border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 10px; }
+	table#responsive_4 td { border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; padding-left: 50%!important; }
+	table#responsive_4 td:before {	position: absolute;	top: 6px; left: 6px; width: 40%; padding-right: 10px; text-align: left; word-wrap: break-word; }
+	table#responsive_4 tr:first-child { position: absolute; top: -9999px; left: -9999px; }
+	table#responsive_4 td:before { content: attr(data-content); height: 50px; }
+	table#responsive_4 td.small-padding {box-sizing: border-box; width: 100%; padding-top: 5px!important; padding-bottom: 5px!important; overflow: hidden;}
+	table#responsive_4 td.medium-padding { padding-top: 15px!important; padding-bottom: 15px!important; }
+	table#responsive_4 td.large-padding { padding-top: 25px!important; padding-bottom: 25px!important; }
+}
+
+@media (max-width: 780px) {
+	table#responsive_3,
+	table#responsive_3 thead,
+	table#responsive_3 tbody,
+	table#responsive_3 th,
+	table#responsive_3 td,
+	table#responsive_3 tr { display: block; }
+	table#responsive_3 thead tr { position: absolute; top: -9999px; left: -9999px; }
+	table#responsive_3 tr { border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 10px; }
+	table#responsive_3 td { border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: relative; padding-left: 50%!important; }
+	table#responsive_3 td:before {	position: absolute;	top: 6px; left: 6px; width: 40%; padding-right: 10px; text-align: left; word-wrap: break-word; }
+	table#responsive_3 tr:first-child { position: absolute; top: -9999px; left: -9999px; }
+	table#responsive_3 td:before { content: attr(data-content); height: 50px; }
+	table#responsive_3 td.small-padding { padding-top: 5px!important; padding-bottom: 5px!important; }
+	table#responsive_3 td.medium-padding { padding-top: 15px!important; padding-bottom: 15px!important; }
+	table#responsive_3 td.large-padding { padding-top: 25px!important; padding-bottom: 25px!important; }
+}
+
+@media (max-width: 480px) {
+	table.responsive,
+	table.responsive thead,
+	table.responsive tbody,
+	table.responsive th,
+	table.responsive td,
+	table.responsive tr { display: block; }
+	table.responsive thead tr { position: absolute; top: -9999px; left: -9999px; }
+	table.responsive tr { border: 1px solid #ccc; margin-bottom: 10px; }
+	table.responsive td { border: none; border-bottom: 1px solid #eee; position: relative; padding-left: 50%!important; }
+	table.responsive td:before {	position: absolute;	top: 6px; left: 6px; width: 40%; padding-right: 10px; text-align: left; word-wrap: break-word; }
+	table.responsive tr:first-child { position: absolute; top: -9999px; left: -9999px; }
+	table.responsive td:before { content: attr(data-content); height: 50px; }
+	table.responsive td.small-padding { padding-top: 5px!important; padding-bottom: 5px!important; }
+	table.responsive td.medium-padding { padding-top: 15px!important; padding-bottom: 15px!important; }
+	table.responsive td.large-padding { padding-top: 25px!important; padding-bottom: 25px!important; }
+}

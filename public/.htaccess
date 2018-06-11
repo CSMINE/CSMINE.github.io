@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+	
+	RewriteCond %{HTTP_HOST} ^www.fastvictory\.ru$ [NC]
+	RewriteRule ^(.*)$ http://fastvictory.ru/$1 [R=301,L]
+	
+	RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP
+	RewriteRule ^index\.php$ http://fastvictory.ru/ [R=301,L]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

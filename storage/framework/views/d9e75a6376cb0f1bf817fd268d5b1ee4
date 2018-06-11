@@ -1,0 +1,407 @@
+
+
+<?php $__env->startSection('content'); ?>
+
+<header >
+    
+    <?php echo $__env->make('includes.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+    
+    <div class="banners">
+        <div id="wrapper">
+
+            <div class="user_block">
+                <div class="inbox">
+                    <div class="title">Последний победитель</div>
+                    <div class="clear"></div>
+                    <div class="avatar" id="winavatar"><img src="<?php echo e($lastava); ?>"></div>
+                    <ul>
+                        <li class="name" id="winidrest"><?php echo e($lastname); ?></li>
+                        <li><span class="left">Шанс:</span><span class="right" id="winchancet"><?php echo e($lastchanc); ?>%</span></li>
+                        <li><span class="left">Выигрыш:</span><span class="right" id="winmoner"><?php echo e($lastprice); ?> <sub>₽</sub></span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="user_block">
+                <div class="inbox owl-carousel" id="lucky">
+
+                    <div class="item">
+                        <div class="title">Удачливый сегодня</div>
+                        <div class="clear"></div>
+                        <div class="avatar" id="denb-4"><img src="<?php echo e($luckyava); ?>"></div>
+                        <ul>
+                            <li class="name" id="denb-1"><?php echo e($luckyname); ?></li>
+                            <li><span class="left">Шанс:</span><span class="right" id="denb-3"><?php echo e($luckychanc); ?>%</span></li>
+                            <li><span class="left">Выигрыш:</span><span class="right" id="denb-2"><?php echo e($luckyprice); ?> <sub>₽</sub></span></li>
+                        </ul>
+                    </div>
+
+                    <div class="item">
+                        <div class="title">Удачливый за всё время</div>
+                        <div class="clear"></div>
+                        <div class="avatar" id="vsegda-4"><img src="<?php echo e($allluckyava); ?>"></div>
+                        <ul>
+                            <li class="name" id="vsegda-1"><?php echo e($allluckyname); ?></li>
+                            <li><span class="left">Шанс:</span><span class="right" id="vsegda-3"><?php echo e($allluckychanc); ?>%</span></li>
+                            <li><span class="left">Выигрыш:</span><span class="right" id="vsegda-2"><?php echo e($allluckyprice); ?> <sub>₽</sub></span></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <?php if($kolvo != 0 ): ?>
+            <div class="giveaway">
+                <div class="inbox">
+                    <div class="left">
+                        <?php foreach(json_decode($giveaway->items) as $item): ?>
+                        <div class="title"><?php echo e($item->name); ?><span><?php echo e($item->price); ?> <sub>₽</sub></span></div>
+                        <?php endforeach; ?>
+                        <div class="users" id="carousel">
+                            <div class="es-carousel">
+                                <ul>
+                                    <?php foreach($giveaway_users as $user): ?>
+                                    <li>
+                                        <a href="#" data-profile="<?php echo e($user->steamid64); ?>"><img src="<?php echo e($user->avatar); ?>"></a>
+                                    </li>
+                                    <?php endforeach; ?>
+                            </ul>
+                            </div>
+                        </div>
+                        <div class="text">Всего: <span><?php echo e(count($giveaway_users)); ?> / <?php echo e($giveaway->max_user); ?></span></div>
+                    </div>
+                    <div class="right">
+                         <?php foreach(json_decode($giveaway->items) as $item): ?>
+                        <div class="pic"><img src="https://steamcommunity-a.akamaihd.net/economy/image/class/730/<?php echo e($item->classid); ?>/136fx127f"></div>
+                         <?php endforeach; ?>
+                        <a href="#" class="participate btn orange hoax-button">Учавствовать</a>
+                        <!--<a href="javascript://" onclick="$('#giveaway').arcticmodal()" class="history">История розыгрышей</a>-->
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    
+    
+    <div class="rooms">
+        <div id="wrapper">
+            <div class="inner">
+
+                <div class="tab">
+                    <div class="inbox blue">
+                        <div class="left">
+                            <div class="title">
+                                <div class="name">Classic Game</div>
+                                <div class="tooltip" rel="tooltip" title="Минимальная сумма депозита — 1 ₽.<br>Максимальный депозит — 20 предм.<br>Время каждого раунда — 1 мин 30 сек.">i</div>
+                            </div>
+                            <div class="live"><span class="text">На кону — <b id="bank_jackpot"><?php echo e(round($game->price)); ?></b> <sub>₽</sub></span><span class="rate jackpot" style="display: none;">+0 <sub>₽</sub></span></div>
+                            <a href="/" class="btn blue">Перейти к игре</a>
+                        </div>
+                        <div class="right"><img src="<?php echo e(asset('front/images/classic_game_pic.png')); ?>"></div>
+                    </div>
+                </div>
+
+                <div class="tab">
+                    <div class="inbox green">
+                        <div class="left">
+                            <div class="title">
+                                <div class="name">Duel Game</div>
+                                <div class="tooltip" rel="tooltip" title="Минимальная сумма депозита — 5 ₽.<br>Максимальное количество предметов составляет 15 штук.">i</div>
+                            </div>
+                            <div class="live"><span class="text">Розыгрыш — 0 <sub>₽</sub></span></div>
+                            <a href="#" class="btn green">Скоро...</a>
+                        </div>
+                        <div class="right"><img src="<?php echo e(asset('front/images/duel_game_pic.png')); ?>"></div>
+                    </div>
+                </div>
+
+                <div class="tab">
+                    <div class="inbox red">
+                        <div class="left">
+                            <div class="title">
+                                <div class="name">Double Game</div>
+                                <div class="tooltip" rel="tooltip" title="Игроки могут ставить на чёрное, красное или зелёное.<br>В качестве ставок используются монеты.">i</div>
+                            </div>
+                            <div class="live"><span class="text">На кону — <b id="bank_double">0</b> <sub>₽</sub></span><span class="rate double" style="display: none;">+0 <sub>₽</sub></span></div>
+                            <a href="/double" class="btn red">Испытать удачу</a>
+                        </div>
+                        <div class="right"><img src="<?php echo e(asset('front/images/double_game_pic.png')); ?>"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</header>
+
+ <div id="wrapper">
+<!-- <middle> -->
+
+    <div class="top_page">
+        <div class="numb">
+            <ul>
+                <li>Номер игры:</li>
+                <li id="roundId">#<?php echo e($game->id); ?></li>
+            </ul>
+        </div>
+        <div class="numb">
+            <ul>
+                <li>Банк:</li>
+                <li id="roundBank"><?php echo e(round($game->price)); ?> <sub>₽</sub></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="panel" id="game_body">
+    
+        <div class="top">
+            <div class="progress">
+                <div class="numb"><?php echo e($game->itemsCount); ?> / 100</div>
+                <div class="line" style="width: <?php echo e((100/150) * $game->itemsCount); ?>%;"></div>
+            </div>
+            <div class="text">или через</div>
+            <div class="timer">
+                <div class="min_0">0</div>
+                <div class="min_1">1</div>
+                <span>:</span>
+                <div class="sec_0">3</div>
+                <div class="sec_1">0</div>
+            </div>
+        </div>
+        <?php if(!Auth::guest()): ?>
+        <div class="bottom">
+            <ul>
+                <li id="myItems">Вы вложили в игру <span><?php echo e($user_items); ?></span> (из 20) предметов</li>
+                <li>Минимальная сумма депозита — 1 ₽. Максимальный депозит — 20 предметов.<br>Время каждого раунда — 1 мин 30 сек</li>
+            </ul>
+            
+            <div class="input-group" style="display: inline-block;margin-left: 120px;margin-top: 14px;">
+                <input type="text" id="tsum" placeholder="0.00" pattern="^[ 0-9.]+$" maxlength="5" style="width:80px">
+                <button type="submit" class="btn-add-balance <?php if(empty($u->accessToken)): ?> no-link <?php endif; ?>" onclick="bticks(1,this)">Поставить</button>
+            </div>
+            
+            <div class="right">
+                <div class="chance" rel="tooltip" title="Ваш шанс" id="myChance"><?php echo e($user_chance); ?>%</div>
+                <a href="/deposit"  target="_blank" class="btn orange <?php if(empty($u->accessToken)): ?> no-link <?php endif; ?>">Внести предметы</a>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div> 
+
+    <div class="panel" id="slider" style="display: none;">
+    
+        <div class="roulette">
+            <div class="inbox">
+                <div class="rotate">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="arrow"></div>
+
+        <div class="info">
+            <ul>
+                <li>Выигрышный билет: <span class="ticket">???</span></li>
+                <li>Победитель: <a class="winner">???</a></li>
+            </ul>
+            <ul>
+                <li>Число раунда: <span class="round_hash">???</span></li>
+            </ul>
+            <div class="right">
+                <div class="timer_ng timer">
+                    <div class="sec_0">3</div>
+                    <div class="sec_1">0</div>
+                </div>
+                <a href="/deposit"  target="_blank" class="btn orange <?php if(empty($u->accessToken)): ?> no-link <?php endif; ?>">Внести первым</a>
+            </div>
+        </div>
+
+    </div>
+
+        <div class="partlines" <?php if(!isset($players[0])): ?> style="display: none;" <?php endif; ?> id="colors">
+            <?php foreach($items as $user): ?>
+                <div class="color_<?php echo e($user->place); ?>" style="width: <?php echo e(round($user->chance)); ?>%;"></div>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="parts" id="parts" <?php if(!isset($players[0])): ?> style="display: none;" <?php endif; ?>>
+            <?php foreach($items as $user): ?>
+            <div class="item color_<?php echo e($user->place); ?>" style="display: inline-block; width: 98px;">
+                <div class="inbox">
+                    <div class="av"><img src="<?php echo e($user->avatar); ?>"></div>
+                    <div class="chance"><?php echo e($user->chance); ?>%</div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+     
+        <div class="parts" id="parts" style="display:  none  ;">
+            </div>
+            <div class="trade_link linkMsg" style="display: none;">
+            <div class="title"><span>Введите Вашу ссылку на обмен</span> <a href="http://steamcommunity.com/id/me/tradeoffers/privacy#trade_offer_access_url" target="_blank">Узнать ссылку</a></div>
+            <div class="inputs">
+                <input type="text" name="" placeholder="Вставьте ссылку на обмен...">
+                <button class="save-link2">Сохранить</button>
+            </div>
+        </div> 
+     
+<div id="bets">
+
+        <?php foreach($bets as $bet): ?>
+            <?php if(Auth::check() && $u->is_admin): ?>
+                <?php echo $__env->make('includes.bet_admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                <?php else: ?>
+                <?php echo $__env->make('includes.bet', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+ </div>
+     
+    <div class="rate">
+        <div class="top">
+            <div class="av color_20"><img src="<?php echo e(asset('front/images/bonusbot.jpg')); ?>"></div>
+            <ul>
+                <li><a class="username">БОНУС</a> внес депозит на сумму</li>
+                <li><span>2 <sub>руб</sub></span></li> 
+            </ul>   
+          </div>
+        <div class="items">
+          <div class="item">
+            <div class="inbox ">
+              <div class="pic"><img src="<?php echo e(asset('front/images/bonus.png')); ?>"></div>
+              <div class="price">2 <sub>руб</sub></div>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+    <div class="start">
+        <div class="title">ИГРА НАЧАЛАСЬ! ВНОСИТЕ ДЕПОЗИТЫ!</div>
+        <div class="title2">Сделай ставку первым и получи <b>шанс к победе +2%</b></div>
+        <div class="hash">
+            <a href="javascript://" onclick="$('#fair').arcticmodal()" class="btn orange">ЧЕСТНАЯ ИГРА</a>
+            <div class="text" id="roundHash">Хэш раунда: <?php echo e(md5($game->rand_number)); ?></div>
+        </div>
+    </div>
+
+<!-- </middle> -->
+</div>
+
+<div class="chat" id="chatContainer">
+
+    <div class="chat-header" id="chatHeader">Чат</div>
+
+    <div class="chat-container" id="chatBody" style="height: 0;">
+
+        <div class="inbox" id="chatScroll"><div class="scroll" id="chat_messages"></div></div>
+
+        <div class="form">
+            <textarea name="" id="sendie" placeholder="Введите текст..."></textarea>
+            <div class="smiles">
+                <div class="drop">
+                    <div class="inbox">
+                        <div class="pic" onclick="addsmile('::ak::')"><img src="<?php echo e(asset('/front/images/smiles/ak.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::choza::')"><img src="https://vk.com/images/stickers/2925/64.png"></div>
+                        <div class="pic" onclick="addsmile('::colt::')"><img src="<?php echo e(asset('/front/images/smiles/colt.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::dagger::')"><img src="<?php echo e(asset('/front/images/smiles/dagger.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::dead::')"><img src="<?php echo e(asset('/front/images/smiles/dead.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::gogogo::')"><img src="<?php echo e(asset('/front/images/smiles/gogogo.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::hook::')"><img src="<?php echo e(asset('/front/images/smiles/hook.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::knife::')"><img src="<?php echo e(asset('/front/images/smiles/knife.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::1::')"><img src="<?php echo e(asset('/front/images/smiles/1.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::2::')"><img src="<?php echo e(asset('/front/images/smiles/2.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::3::')"><img src="<?php echo e(asset('/front/images/smiles/3.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::4::')"><img src="<?php echo e(asset('/front/images/smiles/4.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::5::')"><img src="<?php echo e(asset('/front/images/smiles/5.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::6::')"><img src="<?php echo e(asset('/front/images/smiles/6.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::7::')"><img src="<?php echo e(asset('/front/images/smiles/7.png')); ?>"></div>
+                        <div class="pic" onclick="addsmile('::8::')"><img src="<?php echo e(asset('/front/images/smiles/8.png')); ?>"></div>
+                    </div>
+                </div>
+            </div>
+            <button></button>
+        </div>
+
+    </div>
+
+</div>
+
+<div style="display: none;">
+    <div class="box-modal" id="congratulations">
+
+        <div class="title">Поздравляем!</div>
+        <a href="javascript://" class="box-modal_close arcticmodal-close"></a>
+
+        <p>Вы только что выиграли <b id="win_money">0 ₽</b> со взносом в размере <b id="spent_money">0 ₽</b> и шансом <b id="win_chanse">0%</b>.</p>
+        <p>Вы получите предложение об обмене в течение нескольких минут.<br>Пожалуйста, примите обмен как можно быстрее.</p>
+
+        <div class="share">
+            <div class="top">Расскажите о своей победе</div>
+            <div class="social">
+                <a href="https://vk.com/happyskinsru" target="_blank" class="vk"></a>
+                <span></span>
+                <a href="https://steamcommunity.com/groups/" target="_blank" class="steam"></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div style="display: none;">
+    <div class="box-modal" id="giveaway">
+
+        <div class="title">История розыгрышей</div>
+        <a href="javascript://" class="box-modal_close arcticmodal-close"></a>
+
+        <div class="table">
+            <table class="responsive" id="responsive_2">
+                <tbody>
+                    <tr>
+                        <th class="pic"></th>
+                        <th>Предмет</th>
+                        <th>Победитель</th>
+                        <th>Участники</th>
+                    </tr>
+                                            <tr>
+                                                            <td class="pic"><img src="https://steamcommunity-a.akamaihd.net/economy/image/class/730/1835681706/200fx200f"></td>
+                                <td>Наклейка | FaZe Clan | Cologne 2016</td>
+                                                        <td> happyskins.ru</td>
+                            <td>49 / 49</td>
+                        </tr>
+                                    </tbody>
+            </table>
+        </div>
+    
+    </div>
+</div>
+
+<div style="display: none;">
+    <div class="box-modal" id="fair">
+
+        <div class="title">Честная игра</div>
+        <a href="javascript://" class="box-modal_close arcticmodal-close"></a>
+
+        <p>За каждый внесенную 1 копейку вы получаете 1 билет. Например, если вы внесли депозит на 100 ₽, то выполучите 10000 билетов (т.к. 100 ₽ = 10000 копеек, а 1 копейка = 1 билет).</p>
+        <p>В начале каждого раунда наша система берет абсолютно рандомное длинное число от 0 до 1 (например 0.83952926436439157) и шифрует его через md5 , и показывает его в зашифрованом виде в начале раунда (если вы не знаете, что такое md5 - можете <a href="https://ru.wikipedia.org/wiki/MD5" target="_blank">почитать статью на википедии</a>).</p>
+        <p>Затем, когда раунд завершился, система показывает то число, которое было шифровано вначале (проверить его вы можете на сайте <a href="https://www.md5.cz/" target="_blank">md5.cz</a>) и умножает его на банк (в копейках).</p>
+        <p>Например, в конце раунда банк составил 1000 ₽, а 1000 ₽ = 100000 копеек (1 ₽ = 100 копеек), то нужно будет число 0.83952926436439157 умножить на банк 100000 копеек (это цифры, которые мы брали для примера) и получим число 83952. То есть в раунде победит человек, у которого есть 83952 билет.</p>
+        <p>Следовательно, чем на большую сумму депозит вы внесете - тем больше билетов вы получите, а значит выше шанс получить выигрышный билет.</p>
+        <p>Вот и всё. Принцип работы честной игры заключается в том, что мы никак не можем знать какой будет банк в конце игры, а рандомное число для умножения на банк мы даем в самом начале раунда и следовательно даже если бы мы сильно этого захотели, то никак бы не смогли сделать подставного победителя.</p>
+
+        <div class="form">
+            <div class="top">Проверка честной игры</div>
+            <p>Число раунда * банк (в копейках) = выигрышный билет</p>
+            <input type="text" id="roundHash1" placeholder="Хэш раунда">
+            <input type="text" id="roundNumber1" placeholder="Число раунда">
+            <input type="text" id="roundPrice1" placeholder="Кол-во копеек в раунде">
+            <button id="checkHash">Проверить</button>
+        </div>
+
+    </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

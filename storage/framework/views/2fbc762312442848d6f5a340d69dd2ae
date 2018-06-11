@@ -1,0 +1,239 @@
+
+
+<?php $__env->startSection('content'); ?>
+
+<script src="<?php echo e(asset('/front/js/app_double.js')); ?>"></script>
+
+<header>
+   <?php echo $__env->make('includes.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+<div class="banners">
+    <div id="wrapper">
+        
+        
+    <div class="user_block">
+        <div class="inbox">
+            <div class="title">Победитель дня</div>
+            <div class="clear"></div>
+            <div class="avatar" id="winner_avatar"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/1f/1f293d5148b962c4a52eade9e4dd0f4eee54c27e_full.jpg"></div>
+            <ul>
+                <li class="name" id="winner_username">-vlamich-</li>
+                <li><span class="left">Выиграл разом:</span><span class="right" id="winner_win">826 <sub>₽</sub></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="user_block">
+        <div class="inbox">
+
+            <div class="item">
+                <div class="title">Максимальный выигрыш</div>
+                <div class="clear"></div>
+                <div class="avatar"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/1f/1f293d5148b962c4a52eade9e4dd0f4eee54c27e_full.jpg"></div>
+                <ul>
+                    <li class="name">-vlamich-</li>
+                    <li><span class="left">Выиграл разом:</span><span class="right">826 <sub>₽</sub></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <?php if($kolvo != 0 ): ?>
+    <div class="giveaway">
+        <div class="inbox">
+            <div class="left">
+                <?php foreach(json_decode($giveaway->items) as $item): ?>
+                <div class="title"><?php echo e($item->name); ?><span><?php echo e($item->price); ?> <sub>₽</sub></span></div>
+                <?php endforeach; ?>
+                <div class="users" id="carousel">
+                    <div class="es-carousel">
+                        <ul>
+                            <?php foreach($giveaway_users as $user): ?>
+                            <li>
+                                <a href="#" data-profile="<?php echo e($user->steamid64); ?>"><img src="<?php echo e($user->avatar); ?>"></a>
+                            </li>
+                            <?php endforeach; ?>
+                    </ul>
+                    </div>
+                </div>
+                <div class="text">Всего: <span><?php echo e(count($giveaway_users)); ?> / <?php echo e($giveaway->max_user); ?></span></div>
+            </div>
+            <div class="right">
+                 <?php foreach(json_decode($giveaway->items) as $item): ?>
+                <div class="pic"><img src="https://steamcommunity-a.akamaihd.net/economy/image/class/730/<?php echo e($item->classid); ?>/136fx127f"></div>
+                 <?php endforeach; ?>
+                <a href="#" class="participate btn orange hoax-button">Учавствовать</a>
+                <a href="javascript://" onclick="$('#giveaway').arcticmodal()" class="history">История розыгрышей</a>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+    </div>
+</div>
+    
+<div class="rooms">
+    <div id="wrapper">
+        <div class="inner">
+
+            <div class="tab">
+                <div class="inbox blue">
+                    <div class="left">
+                        <div class="title">
+                            <div class="name">Classic Game</div>
+                            <div class="tooltip" rel="tooltip" title="Минимальная сумма депозита — 1 ₽.<br>Максимальный депозит — 20 предм.<br>Время каждого раунда — 1 мин 30 сек.">i</div>
+                        </div>
+                        <div class="live"><span class="text">На кону — <b id="bank_jackpot"><?php echo e(round($game->price)); ?></b> <sub>₽</sub></span><span class="rate jackpot" style="display: none;">+0 <sub>₽</sub></span></div>
+                        <a href="/" class="btn blue">Перейти к игре</a>
+                    </div>
+                    <div class="right"><img src="<?php echo e(asset('front/images/classic_game_pic.png')); ?>"></div>
+                </div>
+            </div>
+
+            <div class="tab">
+                <div class="inbox green">
+                    <div class="left">
+                        <div class="title">
+                            <div class="name">Duel Game</div>
+                            <div class="tooltip" rel="tooltip" title="Минимальная сумма депозита — 5 ₽.<br>Максимальное количество предметов составляет 15 штук.">i</div>
+                        </div>
+                        <div class="live"><span class="text">Розыгрыш — 0 <sub>₽</sub></span></div>
+                        <a href="#" class="btn green">Скоро...</a>
+                    </div>
+                    <div class="right"><img src="<?php echo e(asset('front/images/duel_game_pic.png')); ?>"></div>
+                </div>
+            </div>
+
+            <div class="tab">
+                <div class="inbox red">
+                    <div class="left">
+                        <div class="title">
+                            <div class="name">Double Game</div>
+                            <div class="tooltip" rel="tooltip" title="Игроки могут ставить на чёрное, красное или зелёное.<br>В качестве ставок используются монеты.">i</div>
+                        </div>
+                        <div class="live"><span class="text">На кону — <b id="bank_double">0</b> <sub>₽</sub></span><span class="rate double" style="display: none;">+0 <sub>₽</sub></span></div>
+                        <a href="/double" class="btn red">Испытать удачу</a>
+                    </div>
+                    <div class="right"><img src="<?php echo e(asset('front/images/double_game_pic.png')); ?>"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>   
+</header>
+
+
+<div id="wrapper">
+<!-- <middle> -->
+
+    <div class="double_game">
+
+        <div class="top_page">
+            <div class="center">Начало через: <span id="time_double">00:30</span></div>
+        </div>
+
+        <div class="line">
+            <div class="arrow"></div>
+            <div class="inbox">
+                <div class="picture" id="case" style="background-position: -465px 0px;"></div>
+            </div>
+        </div>
+
+        <div class="last">
+            <div class="text">Последние результаты:</div>
+            <div class="games" id="past">
+                <?php foreach($gamers as $game1): ?>
+                    <div data-rollid="<?php echo e($game1->id); ?>" class="ball ball-<?php echo e($game1->won_const); ?>"><?php echo e($game1->win_num); ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+<?php if(!Auth::guest()): ?>
+        <div class="panel">
+            <div class="balance">Баланс: <span id="balance"><?php echo e($u->money); ?></span><div class="num"><span></span><a onclick="$('#deposit_money').arcticmodal(); return false"></a></div></div>
+            <div class="clear"></div>
+            <div class="input"><input type="text" name="" placeholder="0" id="betAmount"></div>
+            <ul>
+                <li><a onclick="clearss();">Очистить</a></li>
+                <li><a onclick="">Последняя</a></li>
+                <li><a onclick="one();">+10</a></li>
+                <li><a onclick="onet();">+100</a></li>
+                <li><a onclick="oneh();">+500</a></li>
+                <li><a onclick="onek();">+1000</a></li>
+                <li><a onclick="half();">1/2</a></li>
+                <li><a onclick="double();">X2</a></li>
+                <li><a onclick="max();">Макс.</a></li>
+            </ul>
+        </div>
+<?php endif; ?>
+        <div class="rates">
+
+            <div class="block red">
+                <div class="title" onclick="addTicket_double(1, this)" id="red-button">1 — 7<span>2x</span></div>
+<!--                <div id="red_leader">
+                    <div class="highest">
+                    <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3f/3f0a263937ffd88b72dffcafac7d6aaa401fabe9_full.jpg">
+                    <ul>
+                        <li>Лидер</li>
+                        <li><a href="#">kupich HAPPYSKINS.RU</a></li>
+                    </ul>
+                        <div class="points">1</div>
+                    </div>
+                </div>-->
+                
+                <div class="total">Итого: <span id="bank_1"><?php echo e($obw1); ?></span></div>
+                <div id="bet_1">
+                    <?php foreach($bets as $bet): ?>
+                        <?php echo $__env->make('includes.bet1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="block green">
+                <div class="title" onclick="addTicket_double(0, this)" id="green-button">0<span>14x</span></div>
+<!--                <div id="green_leader">
+                    <div class="highest">
+                    <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3f/3f0a263937ffd88b72dffcafac7d6aaa401fabe9_full.jpg">
+                    <ul>
+                        <li>Лидер</li>
+                        <li><a href="#">kupich HAPPYSKINS.RU</a></li>
+                    </ul>
+                        <div class="points">1</div>
+                    </div>                
+                </div>-->
+                <div class="total">Итого: <span id="bank_0"><?php echo e($obw0); ?></span></div>
+                <div id="bet_0">
+                    <?php foreach($bets as $bet): ?>
+                            <?php echo $__env->make('includes.bet0', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="block black">
+                <div class="title" onclick="addTicket_double(2, this)" id="black-button">8 — 14<span>2x</span></div>
+<!--                <div id="black_leader">
+                    <div class="highest">
+                    <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3f/3f0a263937ffd88b72dffcafac7d6aaa401fabe9_full.jpg">
+                    <ul>
+                        <li>Лидер</li>
+                        <li><a href="#">kupich HAPPYSKINS.RU</a></li>
+                    </ul>
+                        <div class="points">1</div>
+                    </div>
+                </div>-->
+                <div class="total">Итого: <span id="bank_2"><?php echo e($obw2); ?></span></div>
+                <div id="bet_2">
+                    <?php foreach($bets as $bet): ?>
+                        <?php echo $__env->make('includes.bet2', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- </middle> -->
+</div>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

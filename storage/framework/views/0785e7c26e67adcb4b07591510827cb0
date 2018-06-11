@@ -1,0 +1,66 @@
+
+
+<?php $__env->startSection('content'); ?>
+
+    <header  class="other_pages">
+       <?php echo $__env->make('includes.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>     
+    </header>
+
+		<div id="wrapper">
+	<!-- <middle> -->
+
+		<div class="top_page">
+			<div class="center">Реферальная система</div>
+		</div>
+		
+		<div class="referrals">
+		
+			<div class="coupon">У Вас нет реферального купона? Можете ввести наш — <span>HAPPYSKINS</span></div>
+
+			<div class="steps">
+				<div class="block">За активацию купона Вы получаете<span><?php echo e(\App\Http\Controllers\ReferalController::ADD_MONEY_MAIN_REF); ?> <sub>руб</sub></span></div>
+				<div class="arrow"></div>
+				<div class="block">За каждого приглашённого друга Вы получаете<span><?php echo e(\App\Http\Controllers\ReferalController::ADD_MONEY_REF); ?> <sub>руб</sub></span></div>
+				<div class="arrow"></div>
+				<div class="block">Для активации купона Вам необходимо сыграть<span>1 игру</span></div>
+			</div>
+
+            <div class="you_coupon">Ваш купон — <span><?php echo e($myref); ?></span></div>
+      
+            <div class="details">
+				<div class="block">
+					<div class="inbox">Ваш баланс<span id="balance"><?php echo e($u->money); ?> <sub>руб</sub></span></div>
+				</div>
+				<div class="block">
+					<div class="inbox">Ваша прибыль<span><?php echo e($u->refprofit); ?> <sub>руб</sub></span></div>
+				</div>
+				<div class="block">
+					<div class="inbox">Ваши рефералы<span><?php echo e($u->refcount); ?></span></div>
+				</div>
+			</div>
+
+			<div class="form" >
+                <?php if($u->refstatus != 1): ?>
+                    <div class="box" id="ref_get_block">
+						<div class="section">Активировать купон</div>
+						<div class="clear"></div>
+						<input type="text" name="" placeholder="Введите купон">
+						<button id="ref_get">Активировать</button>
+					</div>
+                <?php endif; ?>
+                <?php if(!$u->refkode): ?>
+                    <div class="box" id="ref_create_block">
+						<div class="section">Создать купон</div>
+						<div class="clear"></div>
+						<input type="text" name="" placeholder="Введите купон">
+						<button id="ref_create">Создать</button>
+					</div>
+                <?php endif; ?>
+            </div>
+        </div>
+
+	<!-- </middle> -->
+	</div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,16 @@
+    <div class="partlines" <?php if(!isset($players[0])): ?> style="display: none;" <?php endif; ?> id="colors">
+        <?php foreach($items as $user): ?>
+            <div class="color_<?php echo e($user->place); ?>" style="width: <?php echo e(round($user->chance)); ?>%;"></div>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="parts" id="parts" <?php if(!isset($players[0])): ?> style="display: none;" <?php endif; ?>>
+        <?php foreach($items as $user): ?>
+        <div class="item color_<?php echo e($user->place); ?>" style="display: inline-block; width: 98px;">
+            <div class="inbox">
+                <div class="av"><img src="<?php echo e($user->avatar); ?>"></div>
+                <div class="chance"><?php echo e($user->chance); ?>%</div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>

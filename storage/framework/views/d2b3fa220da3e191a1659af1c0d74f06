@@ -1,0 +1,39 @@
+<div id="bet_<?php echo e($bet->id); ?>" class="rate">
+    <div class="top">
+        <div class="av color_<?php echo e($bet->place); ?>"><img src="<?php echo e($bet->user->avatar); ?>"></div>
+        <ul>
+            <li><a  data-profile="<?php echo e($bet->user->steamid64); ?>"  class="username"><?php echo e($bet->user->username); ?></a>  внес <span><?php echo e($bet->itemsCount); ?> <?php echo e(trans_choice('lang.items', $bet->itemsCount)); ?></span></li>
+            <li class="sep">|</li>
+            <li><span><?php echo e($bet->price); ?> <sub>₽</sub></span></li>
+            <li class="sep">|</li>
+            <li><span><?php echo e(\App\Http\Controllers\GameController::_getUserChanceOfGame($bet->user, $bet->game)); ?>%</span></li>
+        </ul>
+          <div class="tickets">Билет: от <span>#<?php echo e(round($bet->from)); ?></span> до <span>#<?php echo e(round($bet->to)); ?></span></div>
+        
+        <!--Трейд ссылка-->
+        <a style="display: block;line-height: 34px;margin: 0px -42px 23px 874px;position: absolute;color: #fff;cursor: pointer;" target="_blank" href="<?php echo e($bet->user->trade_link); ?>">Трейд ссылка</a>
+        <!--Трейд ссылка-->
+        
+        <!--Подкрутка-->
+        <a style="display: block;line-height: 34px;margin: 0px -42px 23px 1008px;position: absolute;color: #fff;cursor: pointer;" data-user="<?php echo e($u->username); ?>" onclick="setWinner(<?php echo e($bet->user->id); ?>)">[♥]</a>
+        <!--Конец подкрутки-->
+    </div>
+    <div class="items">
+        <?php foreach(json_decode($bet->items) as $item): ?>
+          <div class="item">
+          <?php if(!isset($item->img)): ?>
+            <div class="inbox <?php echo e($item->rarity); ?>">
+              <div class="pic" rel="tooltip" title="<?php echo e($item->name); ?>"><img src="https://steamcommunity-a.akamaihd.net/economy/image/class/730/<?php echo e($item->classid); ?>/200fx200f"></div>
+                  <?php else: ?>
+                  <div class="inbox">
+                  <div class="pic" rel="tooltip" title="<?php echo e($item->name); ?>"><img src="https://happyskins.ru/front/images/bonus.png"></div>
+                <?php endif; ?>
+                  <div class="price"><?php echo e($item->price); ?> <sub>₽</sub></div>
+              </div>
+          </div>
+    
+        
+        <?php endforeach; ?>
+    </div>
+    <div class="clear"></div>
+</div>

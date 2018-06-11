@@ -1,0 +1,142 @@
+
+
+<?php $__env->startSection('content'); ?>
+<profile class="ng-scope ng-isolate-scope">
+	<div class="col-md-12">
+		<div class="profile-box">
+			<div class="profile-header">
+				<div class="actions pull-left">
+					<a href="http://steamcommunity.com/profiles/<?php echo e($steamid64); ?>/" target="_blank" class="action"><i class="fa fa-steam"></i></a>
+				</div>
+				<div class="profile-header-text ng-binding">
+					<div class="arrow-right hidden-sm hidden-xs"></div>
+					<?php echo e($username); ?>
+
+					<div class="arrow-left hidden-sm hidden-xs"></div>
+				</div>
+				<?php if(!Auth::guest()): ?>
+				<?php if($u->steamid64 == $steamid64): ?>
+				<div class="actions pull-right">
+					<a href="/logout"><div class="action"><i class="fa fa-sign-out"></i></div></a>
+				</div>
+				<?php else: ?>
+				<div class="actions pull-right">
+					<div class="action visibility-hidden"><i class="fa fa-sign-out"></i></div>
+				</div>
+				<?php endif; ?>
+				<?php else: ?>
+				<div class="actions pull-right">
+					<div class="action visibility-hidden"><i class="fa fa-sign-out"></i></div>
+				</div>
+				<?php endif; ?>
+			</div>
+			<div class="profile-content clearfix">
+				<div class="avatar">
+					<img alt="" src="<?php echo e($avatar); ?>">
+				</div>
+				<div class="">
+					<table class="info-table">
+						<tbody>
+							<tr>
+								<td>Количество игр:</td>
+								<td class="ng-binding"><?php echo e($games); ?></td>
+							</tr>
+							<tr>
+								<td>Всего побед:</td>
+								<td class="ng-binding"><?php echo e($wins); ?></td>
+							</tr>
+							<tr>
+								<td>WIN RATE:</td>
+								<td class="ng-binding"><?php echo e($winrate); ?>%</td>
+							</tr>
+							<tr>
+								<td>Сумма банков:</td>
+								<td class="ng-binding"><?php echo e($totalBank); ?> руб.</td>
+							</tr>
+							<?php if(!Auth::guest()): ?>
+							<?php if($u->steamid64 == $steamid64): ?>
+							<tr>
+								<td>V.I.P.:</td>
+								<td id="statusVip">
+									<?php if($u->is_vip == 0): ?>
+									<div class="btn btn-primary btn-square btn-sm text-uppercase ng-scope" id="buyvip">Приобрести</div>
+									<?php else: ?>
+									<i class="fa fa-check ng-scope"></i>
+									<?php endif; ?>
+								</td>
+							</tr>
+							<?php else: ?>
+							<tr>
+								<td>VIP аккаунт:</td>
+								<td>
+									<?php if($vip == 0): ?>
+									<i class="fa fa-times ng-scope"></i>
+									<?php else: ?>
+									<i class="fa fa-check ng-scope"></i>
+									<?php endif; ?>
+								</td>
+							</tr>
+							<?php endif; ?>
+							<?php else: ?>
+							<tr>
+								<td>V.I.P.:</td>
+								<td>
+									<?php if($vip == 0): ?>
+									<i class="fa fa-times ng-scope"></i>
+									<?php else: ?>
+									<i class="fa fa-check ng-scope"></i>
+									<?php endif; ?>
+								</td>
+							</tr>
+							<?php endif; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php if(!Auth::guest()): ?>
+	<?php if($u->is_admin == 1): ?>
+	<div class="col-md-12">
+		<div class="profile-nav clearfix">
+			<div class="col-md-4 profile-nav-item" style="background:#ca5454;" id="freevipbutton" data-steamid="<?php echo e($steamid64); ?>">Выдать/Снять VIP</div>
+			<?php if($banchat == 0): ?>
+			<div class="col-md-4 profile-nav-item profile-nav-item-marker" id="banchatbutton" data-steamid="<?php echo e($steamid64); ?>"><span id="banchat">Заблокировать в чате</span></div>
+			<?php else: ?>
+			<div class="col-md-4 profile-nav-item profile-nav-item-marker" id="banchatbutton" data-steamid="<?php echo e($steamid64); ?>"><span id="unbanchat">Разблокировать в чате</span></div>
+			<?php endif; ?>
+			<a href="#!/user-history" class="col-md-4 profile-nav-item">zZzzZZzzzZZ</a>
+		</div>
+	</div>
+	<?php endif; ?>
+	
+	<?php if($u->steamid64 == $steamid64): ?>
+	<!--<div class="col-md-12">
+		<div class="profile-nav clearfix">
+			<a href="#!/ref" class="col-md-4 profile-nav-item">Партнерская программа</a>
+			<a href="#!/refill" class="col-md-4 profile-nav-item profile-nav-item-marker">Пополнить баланс</a>
+			<a href="#!/user-history" class="col-md-4 profile-nav-item">История моих игр</a>
+		</div>
+	</div>-->
+	<offerlink-alert title="'Сслыка на обмен.'" class="ng-isolate-scope">
+		<div class="col-md-12">
+			<div class="offerlink-alert-box">
+				<div class="offerlink-header">
+					<b class="ng-binding">Сслыка на обмен.</b>
+					<a href="http://steamcommunity.com/profiles/<?php echo e($steamid64); ?>/tradeoffers/privacy#trade_offer_access_url" target="_blank">Где взять ссылку?</a>
+				</div>
+				<div class="offerlink-form ng-pristine ng-valid">
+					<div class="input-wrapper">
+						<input type="text" value="<?php echo e($u->trade_link); ?>" placeholder="Введите ссылку на обмен" id="tradeLink">
+					</div>
+					<button type="submit" id="saveTradeLink" class="btn btn-primary ladda-button"><span class="ladda-label">Сохранить</span><span class="ladda-spinner"></span></button>
+				</div>
+				<div class="offerlink-footer">Обязательно <a href="">убедитесь что ваш инвентарь публично доступен</a> в Steam для получения приза!</div>
+			</div>
+		</div>
+	</offerlink-alert>
+	<?php endif; ?>
+<?php endif; ?>
+</profile>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

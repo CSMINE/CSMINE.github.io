@@ -1,0 +1,50 @@
+<div id="bet_<?php echo e($bet->id); ?>" class="rate">
+    <div class="top">
+        <div class="av color_<?php echo e($bet->place); ?>"><img src="<?php echo e($bet->user->avatar); ?>"></div>
+        <ul>
+            <li><a  data-profile="<?php echo e($bet->user->steamid64); ?>"  class="username"><?php echo e($bet->user->username); ?></a>  внес <span><?php echo e($bet->itemsCount); ?> <?php echo e(trans_choice('lang.items', $bet->itemsCount)); ?></span></li>
+            <li class="sep">|</li>
+            <li><span><?php echo e($bet->price); ?> <sub>₽</sub></span></li>
+            <li class="sep">|</li>
+            <li><span><?php echo e(\App\Http\Controllers\GameController::_getUserChanceOfGame($bet->user, $bet->game)); ?>%</span></li>
+        </ul>
+          <div class="tickets">Билет: от <span>#<?php echo e(round($bet->from)); ?></span> до <span>#<?php echo e(round($bet->to)); ?></span></div>
+    </div>
+    <div class="items">
+        <?php foreach(json_decode($bet->items) as $item): ?>
+          <div class="item">
+          <?php if(!isset($item->img)): ?>
+            <div class="inbox <?php echo e($item->rarity); ?>">
+              <div class="pic" rel="tooltip" title="<?php echo e($item->name); ?>"><img src="https://steamcommunity-a.akamaihd.net/economy/image/class/730/<?php echo e($item->classid); ?>/200fx200f"></div>
+                
+                  <?php if(isset($commission) && $item->market_hash_name == 'commission'): ?>
+                        <?php
+                            $value = array_search($item->classid, $commission_array);
+                            unset($commission_array[$value]);
+                            $a = count($commission_array);
+                        ?>
+                        <div class="commission_blank"><span>Комиссия</span></div>
+                    <?php endif; ?>
+                
+                  <?php else: ?>
+                  <div class="inbox">
+                  <div class="pic" rel="tooltip" title="<?php echo e($item->name); ?>"><img src="https://happyskins.ru/front/images/bonus.png"></div>
+                      
+                      <?php if(isset($commission) && $item->id == 'commission'): ?>
+                        <?php
+                        $value = array_search($item->id, $commission_array);
+                        unset($commission_array[$value]);
+                        ?>
+                        <div class="commission_blank"><span>Комиссия</span></div>
+                    <?php endif; ?>
+                      
+                <?php endif; ?>
+                  <div class="price"><?php echo e($item->price); ?> <sub>₽</sub></div>
+              </div>
+          </div>
+    
+        
+        <?php endforeach; ?>
+    </div>
+    <div class="clear"></div>
+</div>

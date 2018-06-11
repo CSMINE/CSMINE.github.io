@@ -1,0 +1,6 @@
+.arcticmodal-overlay,
+.arcticmodal-container {background: rgba(19, 20, 23, 0.8); position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 1000;}
+.arcticmodal-container {border: 0; border-collapse: collapse; margin: 0; padding: 0; overflow: auto;}
+*:first-child+html .arcticmodal-container {height: 100%;}
+.arcticmodal-container_i {height: 100%; margin: 0 auto;}
+.arcticmodal-container_i2 {border: 0; margin: 0; padding: 0; vertical-align: middle;}

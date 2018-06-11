@@ -1,0 +1,106 @@
+
+
+<?php $__env->startSection('content'); ?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="page-title-box">
+			<h4 class="page-title">Игры</h4>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card-box table-responsive">
+			<center><i id="loader" class="fa fa-spinner fa-2x fa-spin fa-fw"></i></center>
+			<table id="datatable" class="table table-striped table-bordered" style="display:none;">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Winner</th>
+						<th>Status</th>
+						<th>Trade status</th>
+						<th>Price</th>
+                        <th>Items</th>
+						<th>Won items</th>
+						<th>Commission items</th>
+						<th>Created</th>
+						<th>Ended</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+
+				<tbody>
+					<?php $__empty_1 = true; foreach($game as $g): $__empty_1 = false; ?>
+                    <tr>
+						<td><?php echo e($g->id); ?></td>
+                        <td> <?php if($g->winner_id != ''): ?> <a target="_blank" href="http://steamcommunity.com/profiles/<?php echo e($g->winner->steamid64); ?>"><?php echo e($g->winner->username); ?></a> <?php else: ?> Not defined <?php endif; ?></td>
+						<td> <?php if($g->status != '0'): ?> <span class="label label-success">GAME ENDED</span> <?php else: ?> <span class="label label-danger">WAIT PLAYERS</span> <?php endif; ?></td>
+						<td> <?php if($g->status_prize != '1'): ?> <span class="label label-danger">NOT SENT</span> <?php else: ?> <span class="label label-success">SENT</span> <?php endif; ?></td>
+						<td> <?php echo e($g->price); ?> ₽</td>
+                        
+                        <?php if($g->items == '' || $g->items > 0): ?>
+                            <td>No items</td>
+                        <?php else: ?>
+                            <td style="width: 469px;">
+                            <?php foreach(json_decode($g->items) as $i): ?>
+                                <?php if(!isset($i->img)): ?>
+                                <img src="https://steamcommunity-a.akamaihd.net/economy/image/class/730/<?php echo e($i->classid); ?>/200fx200f" style="width: 38px;">
+                                <?php else: ?>
+                                <img src="https://happyskins.ru/front/images/bonus.png" style="width: 38px;">
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            </td>
+                        <?php endif; ?>
+                        
+                        <?php if($g->won_items == ''): ?>
+                            <td>No won items</td>
+                        <?php else: ?>
+                            <td style="width: 469px;">
+                            <?php foreach(json_decode($g->won_items) as $i): ?>
+                                <?php if(!isset($i->img)): ?>
+                                <img src="https://steamcommunity-a.akamaihd.net/economy/image/class/730/<?php echo e($i->classid); ?>/200fx200f" style="width: 38px;">
+                                <?php else: ?>
+                                <img src="https://happyskins.ru/front/images/bonus.png" style="width: 38px;">
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            </td>
+                        <?php endif; ?>
+                        
+                        <?php if($g->commission_items == "[]" || $g->commission_items == '' ): ?>
+                            <td>No commission items</td>
+                        <?php else: ?>
+                            <td style="width: 469px;">
+                            <?php foreach(json_decode($g->commission_items) as $i): ?>
+                                <?php if(!isset($i->img)): ?>
+                                <img src="https://steamcommunity-a.akamaihd.net/economy/image/class/730/<?php echo e($i->classid); ?>/200fx200f" style="width: 38px;">
+                                <?php else: ?>
+                                <img src="https://happyskins.ru/front/images/bonus.png" style="width: 38px;">
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            </td>
+                        <?php endif; ?>
+                        
+						<td><?php echo e($g->created_at->format(' H:i')); ?></td>
+						<td><?php echo e($g->updated_at->format(' H:i')); ?></td>
+                        <td>
+                            <form method="post" action="/admin/edit_game" id="edit_game">
+                                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+                                    <input  name="id" value="<?php echo e($g->id); ?>"  type="hidden">
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-info waves-effect waves-light">Resend trade</button>
+                                    </div>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php endforeach; if ($__empty_1): ?>
+					<?php endif; ?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div> <!-- end row -->
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

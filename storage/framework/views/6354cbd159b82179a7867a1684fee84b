@@ -1,0 +1,7 @@
+<?php if($bet->bet_num == 1): ?>
+<div class="user" id="<?php echo e($bet->steamid64); ?>-<?php echo e($bet->bet_num); ?>" data-amount="<?php echo e($bet->price); ?>">
+    <div class="name"><a href="#"><?php echo e($bet->username); ?></a></div>
+    <div class="points"><?php echo e(round($bet->price)); ?></div>
+</div>
+<?php else: ?>
+<?php endif; ?>

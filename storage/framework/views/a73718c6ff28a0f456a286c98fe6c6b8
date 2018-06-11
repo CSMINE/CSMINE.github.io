@@ -1,0 +1,114 @@
+<?php $__env->startSection('content'); ?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="page-title-box">
+			<h4 class="page-title">Настройки сайта</h4>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card-box">
+			<div class="well panel-body">
+				<form method="post" action="/admin/edit_site" class="form-horizontal" id="edit_site">
+				<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+					<fieldset class="col-md-6 form-group">
+						<label>Титул сайта</label>
+						<input class="form-control" type="text" placeholder="Титул сайта..." name="sitename" value="<?php echo e($configs->sitename); ?>">
+						<small class="text-muted">Титул сайта в заголовке</small>
+					</fieldset>
+
+					<fieldset class="col-md-6 form-group">
+						<label>Описание сайта</label>
+						<input class="form-control" type="text" placeholder="Описание сайта..." name="description" value="<?php echo e($configs->description); ?>">
+						<small class="text-muted">Описание сайта для поисковых систем</small>
+					</fieldset>
+					
+					<fieldset class="col-md-6 form-group">
+						<label>IP сокет сервера</label>
+						<input class="form-control" type="text" placeholder="IP сокет сервера..." name="socket_ip" value="<?php echo e($configs->socket_ip); ?>">
+						<small class="text-muted">IP для подключения бота</small>
+					</fieldset>
+					
+					<fieldset class="col-md-6 form-group">
+						<label>Ключевые слова</label>
+						<input class="form-control" type="text" placeholder="Ключевые слова..." name="keywords" value="<?php echo e($configs->keywords); ?>">
+						<small class="text-muted">Ключевые слова для поисковых систем</small>
+					</fieldset>
+					
+					<fieldset class="col-md-6 form-group">
+						<label>Курс поинтов</label>
+						<input class="form-control" type="text" placeholder="Курс поинтов..." name="curs" value="<?php echo e(round($configs->curs, 2)); ?>">
+						<small class="text-muted">На сколько умножать цену предмета</small>
+					</fieldset>
+					
+					<fieldset class="col-md-6 form-group">
+						<label>Курс валюты</label>
+						<input class="form-control" type="text" placeholder="Курс валюты..." name="curs_2" value="<?php echo e(round($configs->curs_2, 2)); ?>"> 
+						<small class="text-muted">На сколько умножать деньги при пополнении</small>
+					</fieldset>
+					
+					<fieldset class="col-md-6 form-group">
+						<label>Накрутка онлайна</label>
+						<input class="form-control" type="text" placeholder="Оналайн..." name="online" value="<?php echo e($configs->online); ?>">
+						<small class="text-muted">Сколько прибавлять к онлайну</small>
+					</fieldset> 
+					
+					<fieldset class="col-md-6 form-group">
+						<label>Мин. сумма депозита</label>
+						<input class="form-control" type="text" placeholder="Мин. сумма депозита..." name="min_dep_sum" value="<?php echo e($configs->min_dep_sum); ?>">
+						<small class="text-muted">Минимальная стоимость предмета.</small>
+					</fieldset> 
+					
+					<fieldset class="col-md-12 form-group">
+						<label>Steam Api Key</label>
+						<input class="form-control" type="text" placeholder="Steam Api Key..." name="steamapikey" value="<?php echo e($configs->steamapikey); ?>">
+						<small class="text-muted"><a href="http://steamcommunity.com/dev/apikey" target="_blank">Получить ключ</a></small>
+					</fieldset>
+					
+					<div class="col-md-12">
+                    	<h4 class="header-title m-b-15 m-t-10">Настройки Free-kassa</h4>
+                    </div>
+					<fieldset class="col-md-12 form-group">
+						<label>ID магазина</label>
+						<input class="form-control" type="text" placeholder="Идентификатор магазина..." name="mrh_ID" value="<?php echo e($configs->mrh_ID); ?>"> 
+					</fieldset>
+					
+					<fieldset class="col-md-6 form-group">
+						<label>Секретное слово #1</label>
+						<input class="form-control" type="text" placeholder="Секретное слово #1..." name="mrh_secret1" value="<?php echo e($configs->mrh_secret1); ?>"> 
+					</fieldset>
+					
+					<fieldset class="col-md-6 form-group">
+						<label>Секретное слово #2</label>
+						<input class="form-control" type="text" placeholder="Секретное слово #2..." name="mrh_secret2" value="<?php echo e($configs->mrh_secret2); ?>"> 
+					</fieldset>
+                    
+                    <div class="col-md-12">
+                    	<h4 class="header-title m-b-15 m-t-10">Настройки Skin-pay</h4>
+                    </div>
+                    
+                    <fieldset class="col-md-6 form-group">
+						<label>Приватный ключ</label>
+						<input class="form-control" type="text" placeholder="Приватный ключ" name="privatekey" value="<?php echo e($configs->privatekey); ?>"> 
+					</fieldset>
+					
+					<fieldset class="col-md-6 form-group">
+						<label>Публичный ключ</label>
+						<input class="form-control" type="text" placeholder="Публичный ключ" name="publickey" value="<?php echo e($configs->publickey); ?>"> 
+					</fieldset>
+                    
+
+					<div class="form-actions">
+						<button type="submit" class="btn btn-info waves-effect waves-light">Сохранить</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

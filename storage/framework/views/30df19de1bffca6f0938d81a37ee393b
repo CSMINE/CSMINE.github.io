@@ -1,0 +1,44 @@
+
+
+<?php $__env->startSection('content'); ?>
+
+<header  class="other_pages" >
+    <?php echo $__env->make('includes.menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> 
+</header>
+
+<div id="wrapper">
+<!-- <middle> -->
+
+	<div class="top_page">
+		<div class="center">Топ 20 победителей</div>
+	</div>
+
+	<table class="top_list">
+		<tbody>
+			<tr>
+				<th>Место</th>
+				<th>Профиль</th>
+				<th>Участий</th>
+				<th>Побед</th>
+				<th>Win Rate</th>
+				<th>Сумма банков</th>
+			</tr>
+        <?php foreach($users as $user): ?>
+            <?php if($user->is_admin == 0): ?>
+			<tr>
+                <td><span><?php echo e($place++); ?></span></td>
+				<td><img src="<?php echo e($user->avatar); ?>"><a href="#" data-profile="<?php echo e($user->steamid64); ?>"><?php echo e($user->username); ?></a></td>
+				<td><?php echo e($user->games_played); ?></td>
+				<td><?php echo e($user->wins_count); ?></td>
+				<td><?php echo e($user->win_rate); ?>%</td>
+				<td>~<?php echo e(round($user->top_value, 1)); ?> <sub>₽</sub></td>
+			</tr>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </tbody>
+	</table>
+
+<!-- </middle> -->
+  </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
